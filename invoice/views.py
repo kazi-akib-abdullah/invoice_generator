@@ -34,7 +34,7 @@ def invoice(request, id):
     template = loader.get_template('invoice/xx.html')
     html = template.render({'user_profile':user_profile})
     options = {
-        'page-size':'Letter',
+        'page-size':'A5',
         'encoding':"UTF-8",
     }
     pdf = pdfkit.from_string(html, False, options)
