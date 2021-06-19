@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -5,6 +6,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+    <title>The Fashion Truck - List</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -19,19 +22,58 @@
 
     <div class="container">
         <div class="row m-5">
-            <div class="col-md-12">
-                <h2>INVOICE PROFILE LIST</h2>
+            <div class="col-md-4 navbar-nav">
+                <a href="{% url 'list' %}"><h2>INVOICE PROFILE LIST</h2></a>
+            </div>
+            <div class="col-md-1">
+                <nav class="navbar navbar-light bg-light float-left">
+                    <a href="{% url 'accept' %}"><button class="btn btn-outline-primary my-2 my-sm-0">Form</button></a>
+                </nav>
+
+            </div>
+            <div class="col-md-7">
+                <nav class="navbar navbar-light bg-light float-right">
+                    <form class="form-inline" method="GET">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="name" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </nav>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-1">
+                <h6>Sl No</h6>
+            </div>
+            <div class="col-md-3">
+                <h6>Name</h6>    
+            </div>
+            <div class="col-md-3">
+                <h6>Phone</h6>    
+            </div>
+            <div class="col-md-3">
+                <h6>Created</h6>    
+            </div>
+            <div class="col-md-2">
+                <h6>Download</h6>
+            </div>
+        </div> 
+        <br>
         {% for profile in profiles %}
         <div class="row">
-            <div class="col-md-2">
+
+            <div class="col-md-1">
                 {{profile.id}}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-3">
                 {{profile.name}}    
             </div>
-            <div class="col-md-5">
+            <div class="col-md-3">
+                {{profile.phone}}    
+            </div>
+            <div class="col-md-3">
+                {{profile.time}}    
+            </div>
+            <div class="col-md-2">
                 <a href="{% url 'inv' profile.id %}" class="btn btn-warning">Download Invoice</a>
             </div>
         </div>  
