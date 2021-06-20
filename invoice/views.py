@@ -57,25 +57,26 @@ def invoice(request, id):
     return response
 
 
-# class UpdateProfile(UpdateView):
-#     model = Profile
-#     fields = ('name', 'phone', 'address', 'product_details')
-#     template_name = 'invoice/edit_invoice.html'
-
-#     def get_success_url(self, **kwargs):
-#         return reverse_lazy('invoice:list', kwargs={'id':self.object.id})
 
 def update(request, id):
     user_profile = Profile.objects.get(pk=id)
     if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        address = request.POST.get("address")
-        price = request.POST.get("price")
-        product_details = request.POST.get("product_details")
-        quantity = request.POST.get("quantity")
-        profile = Profile(name=name, phone=phone, address=address, price=price, product_details=product_details, quantity=quantity)
-        profile.save()
-        return redirect('list')
+        if request.POST.get("name") and request.POST.get("phone") and request.POST.get("address") and request.POST.get("price") and request.POST.get("product_details") and request.POST.get("quantity"):
+            Profile.objects.filter(id=id).update(name = request.POST.get("name"), phone = request.POST.get("phone"), address = request.POST.get("address"), price = request.POST.get("price"), product_details = request.POST.get("product_details"), quantity = request.POST.get("quantity"))
+            context = {'user_profile':user_profile}
+            return render(request, 'invoice/edit_invoice.html')
+        else:
+            context = {'user_profile':user_profile,  'error': 'The post was not successfully updated.'}
+            return render(request, 'invoice/edit_invoice.html', context)
+
+        # name = request.POST.get("name")
+        # phone = request.POST.get("phone")
+        # address = request.POST.get("address")
+        # price = request.POST.get("price")
+        # product_details = request.POST.get("product_details")
+        # quantity = request.POST.get("quantity")
+        # profile = Profile(name=name, phone=phone, address=address, price=price, product_details=product_details, quantity=quantity)
+        # profile.save()
+        # return redirect('list')
 
     return render(request, 'invoice/edit_invoice.html', {'user_profile':user_profile})
