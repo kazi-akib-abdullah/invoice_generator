@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.db.models import Q
 from .models import Profile
 import pdfkit
@@ -6,6 +6,9 @@ from django.http import HttpResponse, Http404
 from django.template import loader
 import os
 from django.conf import settings
+from django.views.generic import UpdateView
+from django.urls import reverse, reverse_lazy
+from django.contrib import messages
 
 import io
 
@@ -13,12 +16,15 @@ import io
 
 def accept(request):
     if request.method == "POST":
+
         name = request.POST.get("name")
         phone = request.POST.get("phone")
         address = request.POST.get("address")
-
-        profile = Profile(name=name, phone=phone, address=address)
+        product_details = request.POST.get("product_details")
+        quantity = request.POST.get("quantity")
+        profile = Profile(name=name, phone=phone, address=address, product_details=product_details, quantity=quantity)        
         profile.save()
+
     return render(request, 'invoice/accept.html')
 
 def list(request):
@@ -49,3 +55,27 @@ def invoice(request, id):
     response = HttpResponse(pdf,content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename = "{}.pdf"'.format(Profile.name)
     return response
+
+
+# class UpdateProfile(UpdateView):
+#     model = Profile
+#     fields = ('name', 'phone', 'address', 'product_details')
+#     template_name = 'invoice/edit_invoice.html'
+
+#     def get_success_url(self, **kwargs):
+#         return reverse_lazy('invoice:list', kwargs={'id':self.object.id})
+
+def update(request, id):
+    user_profile = Profile.objects.get(pk=id)
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        price = request.POST.get("price")
+        product_details = request.POST.get("product_details")
+
+        profile = Profile(name=name, phone=phone, address=address, price=price, product_details=product_details)
+        profile.save()
+        return redirect('list')
+
+    return render(request, 'invoice/edit_invoice.html', {'user_profile':user_profile})

@@ -25,4 +25,5 @@ urlpatterns = [
     path('list/', views.list, name='list'),
     path('invoice/<int:id>/', views.read_invoice, name='inv'),
     path('<int:id>/', views.invoice, name='invo'),
+    path('edit/<int:id>/', views.update, name='edit'),
 ] 

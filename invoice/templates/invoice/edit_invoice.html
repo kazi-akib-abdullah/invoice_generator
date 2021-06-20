@@ -39,44 +39,47 @@
 				<nav class="navbar navbar-light bg-light float-right">
 					<a href="{% url 'list' %}"><button class="btn btn-outline-primary my-2 my-sm-0">List</button></a>
 				</nav>
-			</span>
-			<form class="contact100-form validate-form" method="POST">
+			</span>              
+            
+			<form class="contact100-form validate-form" name="myform" method="POST" enctype="multipart/form-data" >
 				{% csrf_token %}
-
 				<span class="contact100-form-title">
-					Fill Up The Form
+					Update Form
 				</span>
-
-				
-
 				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
 					<span class="label-input100">FULL NAME *</span>
-					<input class="input100" type="text" name="name" maxlength="30" placeholder="Enter Your Name">
+					<input class="input100" type="text" value="{{user_profile.name}}" name="name" placeholder="Enter Your Name">
 				</div>
 
 				<div class="wrap-input100 bg1 validate-input" data-validate="Please Type Your Phone Number">
 					<span class="label-input100">Phone *</span>
-					<input class="input100" type="text" name="phone" maxlength="20" placeholder="Enter Phone Number">
+					<input class="input100" type="text" value="{{user_profile.phone}}" name="phone" placeholder="Enter Phone Number">
 				</div>
 				<div class="wrap-input100 bg1 validate-input" data-validate="Please Type Your Address">
 					<span class="label-input100">Address *</span>
-					<input class="input100" type="text" name="address" maxlength="255" placeholder="Enter Your Address">
+					<input class="input100" type="text" value="{{user_profile.address}}" name="address" placeholder="Enter Your Address">
 				</div>
 				<div class="wrap-input100 bg1 validate-input" data-validate="Please Type Your Product Details">
 					<span class="label-input100">Product Details </span>
-					<input class="input100" type="text" value="" maxlength="255" name="product_details" placeholder="Enter Your Product Details">
+					<input class="input100" type="text" value="{{user_profile.product_details}}" name="product_details" placeholder="Enter Your Product Details">
 				</div>
-				<div class="wrap-input100 bg1 validate-input" data-validate="Please Type Your Product quantity">
+				<div class="wrap-input100 bg1 validate-input" data-validate="Please Type Your Product Price">
+					<span class="label-input100">Price </span>
+					<input class="input100" type="text" value="{{user_profile.price}}" name="price" placeholder="Enter Your Product Price">
+				</div>
+                <div class="wrap-input100 bg1 validate-input" data-validate="Please Type Your Product quantity">
 					<span class="label-input100">Quantity </span>
-					<input class="input100" type="text" value="" name="quantity" placeholder="Enter Your Product quantity">
+					<input class="input100" type="text" value="{{user_profile.quantity}}" name="quantity" placeholder="Enter Your Product quantity">
 				</div>
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn" >
+                    <a href="{% url 'list' %}">
+					<button class="contact100-form-btn">
 						<span>
 							Submit
-							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden=""></i>
 						</span>
 					</button>
+                </a>
 				</div>
 			</form>
 		</div>
@@ -94,7 +97,6 @@
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
 	<script>
-		
 		$(".js-select2").each(function(){
 			$(this).select2({
 				minimumResultsForSearch: 20,
