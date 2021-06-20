@@ -64,7 +64,7 @@ def update(request, id):
         if request.POST.get("name") and request.POST.get("phone") and request.POST.get("address") and request.POST.get("price") and request.POST.get("product_details") and request.POST.get("quantity"):
             Profile.objects.filter(id=id).update(name = request.POST.get("name"), phone = request.POST.get("phone"), address = request.POST.get("address"), price = request.POST.get("price"), product_details = request.POST.get("product_details"), quantity = request.POST.get("quantity"))
             context = {'user_profile':user_profile}
-            return render(request, 'invoice/edit_invoice.html')
+            return redirect('list')
         else:
             context = {'user_profile':user_profile,  'error': 'The post was not successfully updated.'}
             return render(request, 'invoice/edit_invoice.html', context)
