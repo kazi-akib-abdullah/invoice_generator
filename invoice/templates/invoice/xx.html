@@ -59,8 +59,8 @@
       <br />
       </address>
     </div>
-    <div class="col-sm-6 order-sm-0"> <strong>Invoiced To:</strong>
-      <address>
+    <div class="col-sm-6 order-sm-0 text-wrap"> <strong>Invoiced To:</strong>
+      <address class="text-wrap text-break">
 		Name: {{user_profile.name}} <br>
 		Mobile: {{user_profile.phone}} <br>
 		Address: {{user_profile.address}}
@@ -86,8 +86,8 @@
               <td class="col-3 border-0"></td>
               <td class="col-4 text-1 border-0">{{user_profile.product_details}}</td>
               <td class="col-2 text-center border-0">{{user_profile.price}}</td>
-			        <td class="col-1 text-center border-0"></td>
-			       <td class="col-2 text-right border-0">{{user_profile.price}}</td>
+			        <td class="col-1 text-center border-0">{{user_profile.quantity}}</td>
+			       <td class="col-2 text-right border-0">{% widthratio user_profile.quantity 1 user_profile.price %}</td>
             </tr>
             
             <tr>
@@ -122,7 +122,7 @@
 		  <tfoot class="card-footer">
 			<tr>
               <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-              <td class="text-right">{{user_profile.price}}</td>
+              <td class="text-right">{% widthratio user_profile.quantity 1 user_profile.price %}</td>
             </tr>
             <tr>
               <td colspan="4" class="text-right"><strong>Tax:</strong></td>
@@ -130,7 +130,7 @@
             </tr>
 			<tr>
               <td colspan="4" class="text-right"><strong>Total:</strong></td>
-              <td class="text-right">{{user_profile.price}}</td>
+              <td class="text-right">{% widthratio user_profile.quantity 1 user_profile.price %}</td>
             </tr>
 		  </tfoot>
         </table>

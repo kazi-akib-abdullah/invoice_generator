@@ -73,8 +73,8 @@ def update(request, id):
         address = request.POST.get("address")
         price = request.POST.get("price")
         product_details = request.POST.get("product_details")
-
-        profile = Profile(name=name, phone=phone, address=address, price=price, product_details=product_details)
+        quantity = request.POST.get("quantity")
+        profile = Profile(name=name, phone=phone, address=address, price=price, product_details=product_details, quantity=quantity)
         profile.save()
         return redirect('list')
 
